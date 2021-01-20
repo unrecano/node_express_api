@@ -11,8 +11,8 @@ function isAuth(request, response, next) {
     services.decodeToken(token).then(response =>{
         request.user = response
         next()
-    }).catch(response => {
-        response.status(response.status)
+    }).catch(res => {
+        response.status(res.status)
     })
 }
 
