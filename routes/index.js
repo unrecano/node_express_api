@@ -7,14 +7,11 @@ const api = express.Router()
 const ProductController = require('../controllers/product')
 const AuthController = require('../controllers/auth')
 
+// Middlewares.
+const auth = require('../middlewares/auth')
+
 // Routes
-
-/*
-* request.params obtiene los parámetros de la URI especificados.
-* request.query obtiene los parámetros enviados por query.
-*/
-
-api.get('/products', ProductController.all)
+api.get('/products', auth, ProductController.all)
 api.get('/products/:id', ProductController.get)
 api.post('/products', ProductController.save)
 api.put('/products/:id', ProductController.update)

@@ -12,14 +12,13 @@ function signUp (request, response) {
 
     user.save((error) => {
         if (error) return response.status(500).send({message: `Error: ${error}`})
-        return response.status(200).send({token: service.createToken(user)})
+        return response.status(201).send({token: service.createToken(user)})
     })
 }
 
 function singIn(request, response) {
     User.find({email: request.body.email}, (error, user) => {
         if (error) return response.status(500).send({message: `Error ${error}.`})
-        console.log(user)
         if (!user[0]) return response.status(404).send({message: 'Not Found.'})
 
         request.user = user
