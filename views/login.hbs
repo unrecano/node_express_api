@@ -1,0 +1,28 @@
+<form id="login" method="post">
+    <input type="email" value="" name="email" id="email" placeholder="Email">
+    <br><br>
+    <input type="password" value="" name="password" id="password" placeholder="********">
+    <br><br>
+    <input type="submit" value="login">
+</form>
+
+<script type="text/javascript">
+    const formLogin = document.querySelector('#login')
+    formLogin.addEventListener('submit', event => {
+        event.preventDefault()
+        const formData = new FormData(formLogin)
+        let obj = {}
+        for (const key of formData.keys()) {
+            obj[key] = formData.get(key);
+        }
+        fetch('/api/signIn', {
+            method: 'POST',
+            body: JSON.stringify(obj),
+            headers: {
+			    'Content-type': 'application/json'
+		    }
+        })
+        .then(response => response.json())
+        .then(data => sessionStorage.setItem('token', data.token))
+    })
+</script>
